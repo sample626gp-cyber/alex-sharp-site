@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oleksandr Baranov · Alex Sharp — Automotive & Industrial Design</title>
+  <meta name="description" content="Портфолио автомобильного и промышленного дизайна. Free Energy, Ледяная Королева, VoltMobiles." />
+  <style>
+    :root {
+      --bg: #2a2a2e;
+      --bg2: #1e1e22;
+      --card: #323238;
+      --accent: #00d4ff;
+      --text: #f2f2f4;
+      --muted: #9a9aa4;
+      --line: #3a3a42;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(30,30,34,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 0.85rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+    nav .logo { font-weight: 700; letter-spacing: 0.04em; font-size: 0.95rem; }
+    nav .logo span { color: var(--accent); font-weight: 500; margin-left: 0.4rem; }
+    nav ul { list-style: none; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    nav a { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    nav a:hover { color: var(--accent); text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: flex-end;
+      background: var(--bg2) center/cover no-repeat;
+      position: relative;
+      padding: 6rem 1.5rem 3rem;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,20,24,0.92) 0%, rgba(20,20,24,0.35) 45%, rgba(20,20,24,0.2) 100%);
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; width: 100%; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-shadow: 0 0 1px #0a3d6b, 0 2px 20px rgba(0,0,0,0.6);
+    }
+    .hero .alias { color: var(--muted); font-size: 1.1rem; margin-top: 0.35rem; }
+    .hero .tag {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-top: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .hero .sub { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+
+    /* SECTIONS */
+    section { padding: 4rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.04em;
+    }
+    .accent-line {
+      width: 48px; height: 3px; background: var(--accent);
+      margin-bottom: 1.75rem; border-radius: 2px;
+    }
+    .muted { color: var(--muted); }
+
+    /* MANIFESTO */
+    .manifesto {
+      background: var(--bg2);
+      border-left: 4px solid var(--accent);
+      padding: 2rem 1.75rem;
+      border-radius: 0 12px 12px 0;
+      max-width: 720px;
+    }
+    .manifesto p {
+      font-size: 1.15rem;
+      margin-bottom: 0.85rem;
+    }
+    .manifesto .strong { font-weight: 700; color: var(--text); }
+    .manifesto .glow { font-weight: 700; color: var(--accent); }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 800px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-grid img { max-width: 260px; margin: 0 auto; display: block; }
+    }
+    .about-grid img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+    .skills { margin-top: 1.5rem; display: grid; gap: 0.85rem; }
+    .skills dt { color: var(--accent); font-weight: 700; font-size: 0.9rem; }
+    .skills dd { color: var(--muted); font-size: 0.85rem; margin-left: 0; }
+
+    /* GALLERY */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      display: block;
+      background: #111;
+    }
+    .card.portrait img { aspect-ratio: 3/4; object-fit: cover; }
+    .card .body { padding: 1rem 1.1rem 1.2rem; }
+    .card h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+    .card .meta { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; }
+    .card p { color: var(--muted); font-size: 0.85rem; }
+
+    /* WIDE FEATURE */
+    .feature {
+      margin: 1.5rem 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+    .feature img { width: 100%; max-height: 520px; object-fit: cover; display: block; }
+    .feature .cap { padding: 1rem 1.25rem; }
+    .feature .cap h3 { margin-bottom: 0.25rem; }
+    .feature .cap p { color: var(--muted); font-size: 0.9rem; }
+
+    /* MUSIC */
+    .music-banner {
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      margin-bottom: 1.25rem;
+    }
+    .music-banner img { width: 100%; display: block; }
+    .tracks { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .tracks a {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 0.65rem 1.1rem;
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .tracks a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .contact-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1.1rem 1.2rem;
+    }
+    .contact-item .label {
+      color: var(--accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .contact-item a, .contact-item span { color: var(--text); font-size: 0.95rem; word-break: break-all; }
+
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 3rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--line);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">OLEKSANDR BARANOV <span>ALEX SHARP</span></div>
+  <ul>
+    <li><a href="#manifesto">Манифест</a></li>
+    <li><a href="#about">О себе</a></li>
+    <li><a href="#auto">Авто</a></li>
+    <li><a href="#universe">Вселенная</a></li>
+    <li><a href="#music">Музыка</a></li>
+    <li><a href="#contact">Контакты</a></li>
+  </ul>
+</nav>
+
+<header class="hero" style="background-image: url('images/car_palace.png');">
+  <div class="hero-inner">
+    <h1>OLEKSANDR BARANOV</h1>
+    <div class="alias">ALEX SHARP</div>
+    <div class="tag">Automotive · Industrial Design</div>
+    <div class="sub">Futuristic mobility · Concept vehicles · Free Energy</div>
+  </div>
+</header>
+
+<section id="manifesto">
+  <h2>Манифест</h2>
+  <div class="accent-line"></div>
+  <div class="manifesto">
+    <p class="strong">Мы не ждём будущее.</p>
+    <p class="glow">Мы его создаём.</p>
+    <p class="strong">Мы не ждём перемен.</p>
+    <p class="glow">Мы и есть перемены.</p>
+    <p class="strong">Дизайн, который вдохновляет людей —</p>
+    <p class="glow">расширяя границы возможного.</p>
+    <p class="muted" style="margin-top:1rem;">Когда человек смотрит на Ледяную Королеву, у него захватывает дух. Он говорит: она мне снилась всю жизнь. Вот же она.</p>
+    <p class="muted">Это единственный стандарт, который имеет значение.</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>О себе</h2>
+  <div class="accent-line"></div>
+  <div class="about-grid">
+    <div>
+      <p>Олександр Баранов (Alex Sharp) — дизайнер автомобильного и промышленного дизайна. Работает на стыке устойчивой энергии, аэродинамики и эмоциональной формы.</p>
+      <p style="margin-top:0.85rem;" class="muted">Семейство <strong style="color:var(--text)">Free Energy / VoltMobiles</strong> — электрические гранд-туреры и перформанс-концепты, где машина одновременно скульптура и заявление.</p>
+      <dl class="skills">
+        <div><dt>Экстерьерный дизайн</dt><dd>Концепты, силуэт, пластика поверхностей</dd></div>
+        <div><dt>Цифровая визуализация</dt><dd>CGI, свет, storytelling окружения</dd></div>
+        <div><dt>Промышленный дизайн</dt><dd>Форма продукта, эргономика, материалы</dd></div>
+        <div><dt>Вселенная и storytelling</dt><dd>Постеры, персонажи, бренды, музыка</dd></div>
+      </dl>
+    </div>
+    <img src="images/0wGJD.jpg" alt="Alex Sharp — КБ-12" />
+  </div>
+</section>
+
+<section id="auto">
+  <h2>Автомобильный дизайн</h2>
+  <div class="accent-line"></div>
+
+  <div class="feature">
+    <img src="images/car_palace.png" alt="Free Energy у дворца" />
+    <div class="cap">
+      <div class="meta" style="color:var(--accent);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;">Free Energy · Hero</div>
+      <h3>Электроседан у правительственного дворца</h3>
+      <p>Холодный синий час. Присутствие важнее шума.</p>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top:1.25rem;">
+    <article class="card">
+      <img src="images/854992840_1618322656709106_7321916034091471168_n.jpg" alt="VoltMobiles rear" />
+      <div class="body">
+        <div class="meta">VoltMobiles</div>
+        <h3>Grand Tourer — задний фас</h3>
+        <p>Непрерывная световая линия. Агрессия и элегантность.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/855086442_1617418140132891_8381963418343099735_n.jpg" alt="Free Energy front" />
+      <div class="body">
+        <div class="meta">Free Energy</div>
+        <h3>Передний фас</h3>
+        <p>Полноширинная лента света. Наследие и будущее.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/NhL2O.jpg" alt="Marina Ice Queen rear" />
+      <div class="body">
+        <div class="meta">Marina — Ice Queen</div>
+        <h3>Задний ракурс</h3>
+        <p>Красная лента, синяя подсветка, альпийский закат.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/855667423_1618314663376572_6910323164276737402_n.jpg" alt="Marina Ice Queen front" />
+      <div class="body">
+        <div class="meta">Marina — Ice Queen</div>
+        <h3>Три четверти</h3>
+        <p>Белый кузов, неоновый холод, снег и горы.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/839180105_1605694994638539_8401470262623143196_n.jpg" alt="Global Predictor" />
+      <div class="body">
+        <div class="meta">Alex Sharp</div>
+        <h3>Global Predictor</h3>
+        <p>Белый перформанс-концепт. Спокойная сила.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/car_highway.jpg" alt="Highway profile" />
+      <div class="body">
+        <div class="meta">Free Energy</div>
+        <h3>Профиль на трассе</h3>
+        <p>Рассвет, мокрый асфальт, турбинные диски.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/car_neon_room.png" alt="Neon grid" />
+      <div class="body">
+        <div class="meta">Environment</div>
+        <h3>Неоновая сетка</h3>
+        <p>Машина как объект в цифровой кафедре.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/car_tokyo.png" alt="Tokyo night" />
+      <div class="body">
+        <div class="meta">Urban</div>
+        <h3>Токио — ночь</h3>
+        <p>Неон, дождь, вертикальный город.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="cockpit">
+  <h2>Кокпит и персонажи</h2>
+  <div class="accent-line"></div>
+  <div class="grid">
+    <article class="card">
+      <img src="images/800484474_1595418925666146_8365197991981055643_n.jpg" alt="Cockpit orbital" />
+      <div class="body">
+        <div class="meta">Interface</div>
+        <h3>Орбитальный кокпит</h3>
+        <p>Кабина между Землёй и звёздами.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/cockpit_couple.png" alt="Crew suits" />
+      <div class="body">
+        <div class="meta">Characters</div>
+        <h3>Экипаж</h3>
+        <p>Люди внутри видения Free Energy.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="industrial">
+  <h2>Промышленный дизайн</h2>
+  <div class="accent-line"></div>
+  <div class="grid">
+    <article class="card">
+      <img src="images/ferrari_trolley.png" alt="Ferrari trolleybus" />
+      <div class="body">
+        <div class="meta">Transit</div>
+        <h3>Ferrari-троллейбус</h3>
+        <p>Язык перформанса в городском транспорте.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/bike_city.jpg" alt="Chinarello city" />
+      <div class="body">
+        <div class="meta">Product</div>
+        <h3>Chinarello — город</h3>
+        <p>Карбон, цвет, скорость на набережной.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/bike_dogma.jpg" alt="Dogma F17" />
+      <div class="body">
+        <div class="meta">Chinarello Dogma F17</div>
+        <h3>Pro Max</h3>
+        <p>Built for speed. Неоновый градиент.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="universe">
+  <h2>Вселенная Alex Sharp</h2>
+  <div class="accent-line"></div>
+  <div class="grid">
+    <article class="card portrait">
+      <img src="images/PKI76.jpg" alt="Ледяная Королева постер" />
+      <div class="body">
+        <div class="meta">Ледяная Королева</div>
+        <h3>Альтернативный финал</h3>
+        <p>Любовь. Власть. Предсказание. Цена — весь мир.</p>
+      </div>
+    </article>
+    <article class="card portrait">
+      <img src="images/ice_queen_poster2.png" alt="Ледяная Королева трон" />
+      <div class="body">
+        <div class="meta">Key Art</div>
+        <h3>Трон</h3>
+        <p>Она стоит там, где лёд встречается с небом.</p>
+      </div>
+    </article>
+    <article class="card portrait">
+      <img src="images/0wGJD.jpg" alt="КБ-12" />
+      <div class="body">
+        <div class="meta">КБ-12</div>
+        <h3>Портрет</h3>
+        <p>Лицо системы. Энергия и фокус.</p>
+      </div>
+    </article>
+    <article class="card">
+      <img src="images/space_girl.png" alt="Cosmic horizon" />
+      <div class="body">
+        <div class="meta">Storytelling</div>
+        <h3>Космический горизонт</h3>
+        <p>Древняя душа, современный сигнал.</p>
+      </div>
+    </article>
+    <article class="card portrait">
+      <img src="images/predictor_poster.jpg" alt="Predictor Sphere-17" />
+      <div class="body">
+        <div class="meta">Predictor</div>
+        <h3>Сфера-17</h3>
+        <p>One technology changes everything.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="music">
+  <h2>Музыкальный канал</h2>
+  <div class="accent-line"></div>
+  <p class="muted" style="margin-bottom:1rem;">Techno / Ethnic / Cosmic — modern sounds, ancient soul.</p>
+  <a class="music-banner" href="https://suno.com/s/hZuPivzgUjUFBiig" target="_blank" rel="noopener">
+    <img src="images/music_banner.png" alt="Alex Sharp Music Channel" />
+  </a>
+  <div class="tracks">
+    <a href="https://suno.com/s/hZuPivzgUjUFBiig" target="_blank" rel="noopener">▶ Track 1 — Suno</a>
+    <a href="https://suno.com/s/CkAISbxiyCGqGCFS" target="_blank" rel="noopener">▶ Track 2 — Suno</a>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Контакты</h2>
+  <div class="accent-line"></div>
+  <p style="margin-bottom:1.25rem;">Давайте создавать будущее мобильности вместе.</p>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <div class="label">Email</div>
+      <a href="mailto:sample626gp@gmail.com">sample626gp@gmail.com</a>
+    </div>
+    <div class="contact-item">
+      <div class="label">WhatsApp</div>
+      <a href="https://wa.me/491748650113">+49 174 865 0113</a>
+    </div>
+    <div class="contact-item">
+      <div class="label">Facebook</div>
+      <a href="https://www.facebook.com/alex.sharp.79677471" target="_blank" rel="noopener">alex.sharp.79677471</a>
+    </div>
+    <div class="contact-item">
+      <div class="label">Music · Suno</div>
+      <a href="https://suno.com/s/hZuPivzgUjUFBiig" target="_blank" rel="noopener">Открыть канал</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  OLEKSANDR BARANOV · ALEX SHARP · Automotive & Industrial Design · 2025
+</footer>
+
+</body>
+</html>
